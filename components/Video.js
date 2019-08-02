@@ -358,7 +358,8 @@ class Video extends Component {
       playWhenInactive,
       controlDuration,
       textTracks,
-      selectedTextTrack
+      selectedTextTrack,
+      selectedVideoTrack,
     } = this.props
 
     const inline = {
@@ -390,6 +391,7 @@ class Video extends Component {
           {...checkSource(url)}
           textTracks={textTracks}
           selectedTextTrack={selectedTextTrack}
+          selectedVideoTrack={selectedVideoTrack}
           paused={paused}
           resizeMode={resizeMode}
           repeat={loop}
@@ -398,9 +400,8 @@ class Video extends Component {
           rate={rate}
           volume={volume}
           muted={muted}
-          playInBackground={true} // Audio continues to play when app entering background.
-          playWhenInactive={true} // [iOS] Video continues to play when control or notification center are shown.
-          ignoreSilentSwitch={'ignore'}
+          playInBackground={playInBackground} // Audio continues to play when app entering background.
+          playWhenInactive={playWhenInactive} // [iOS] Video continues to play when control or notification center are shown.
           // progressUpdateInterval={250.0}          // [iOS] Interval to fire onProgress (default to ~250ms)
           onLoadStart={() => this.onLoadStart()} // Callback when video starts to load
           onLoad={e => this.onLoad(e)} // Callback when video loads
@@ -409,6 +410,7 @@ class Video extends Component {
           onError={e => this.onError(e)}
           // onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
           onTimedMetadata={e => onTimedMetadata(e)} // Callback when the stream receive some metadata
+
         />
         <Controls
           ref={(ref) => { this.controls = ref }}
@@ -487,8 +489,8 @@ Video.propTypes = {
   resizeMode: PropTypes.string,
   controlDuration: PropTypes.number,
   textTracks: PropTypes.array,
-  selectedTextTrack: PropTypes.object
-
+  selectedTextTrack: PropTypes.object,
+  selectedVideoTrack: PropTypes.object,
 }
 
 Video.defaultProps = {
