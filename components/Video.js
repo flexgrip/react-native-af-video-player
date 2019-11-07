@@ -363,7 +363,7 @@ class Video extends Component {
     } = this.props
 
     const inline = {
-      height: inlineHeight,
+      height: inlineHeight || 300,
       alignSelf: 'stretch'
     }
 
@@ -372,13 +372,15 @@ class Video extends Component {
       ...theme
     }
 
+    const finalHeight = this.animInline ? this.animInline : 300;
+
     return (
       <Animated.View
         style={[
           styles.background,
           fullScreen ?
             (styles.fullScreen, { height: this.animFullscreen })
-            : { height: this.animInline },
+            : { height: this.finalHeight },
           fullScreen ? null : style
         ]}
       >
